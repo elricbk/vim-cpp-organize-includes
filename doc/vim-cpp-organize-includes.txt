@@ -1,0 +1,27 @@
+*vim-cpp-organize-includes.txt* A short multi line description of your plugin
+
+===============================================================================
+CONTENTS                                            *vim-cpp-organize-includes*
+
+    1. Intro ................................ |vim-cpp-organize-includes-intro|
+    2. Requirements .................. |vim-cpp-organize-includes-requirements|
+    3. Usage ................................ |vim-cpp-organize-includes-usage|
+    4. Licence ............................ |vim-cpp-organize-includes-licence|
+===============================================================================
+1. Intro                                      *vim-cpp-organize-includes-intro*
+
+Overview of plugin
+
+2. Requirements                        *vim-cpp-organize-includes-requirements*
+
+What additional programs are required to run the plugin
+
+3. Usage                                      *vim-cpp-organize-includes-usage*
+
+How to use the plugin. What functions does it give the user?
+
+4. Licence                                  *vim-cpp-organize-includes-licence*
+
+This is open source make sure to include a licence
+
+vim:ft=help
