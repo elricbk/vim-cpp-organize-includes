@@ -8,13 +8,11 @@ python sys.path.append(vim.eval('expand("<sfile>:h")'))
 " --------------------------------
 "  Function(s)
 " --------------------------------
-function! TemplateExample()
+function! OrganizeCppIncludes()
 python << endOfPython
 
-from vim_cpp_organize_includes import vim_cpp_organize_includes_example
-
-for n in range(5):
-    print(vim_cpp_organize_includes_example())
+from vim_cpp_organize_includes import organize_cpp_includes
+organize_cpp_includes()
 
 endOfPython
 endfunction
@@ -22,4 +20,4 @@ endfunction
 " --------------------------------
 "  Expose our commands to the user
 " --------------------------------
-command! Example call TemplateExample()
+command! OrganizeCppIncludes call OrganizeCppIncludes()
