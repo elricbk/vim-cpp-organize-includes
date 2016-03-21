@@ -27,8 +27,11 @@ To this:
 
 Plugin adds command `OrganizeCppIncludes` which performs the transformation.
 
-The only available option is `g:organize_includes_company_prefix` which lets you
-to set your company prefix for moving corresponding includes to separate group.
+Available options:
+* `g:organize_includes_company_prefix` lets you to set your company prefix for
+moving corresponding includes to separate group
+* `g:organize_includes_lines_between_groups` allows you to disable adding empty
+lines between groups if set to `0` (default value is `1`).
 
 ## Requirements
 
@@ -53,5 +56,4 @@ Use your plugin manager of choice.
 ## Todo
 
 * Tests
-* Support for optional lines between groups
 * Support for includes with comments

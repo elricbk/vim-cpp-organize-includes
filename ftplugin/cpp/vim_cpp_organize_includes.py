@@ -3,6 +3,7 @@ import itertools
 import os
 
 COMPANY_PREFIX_KEY = "g:organize_includes_company_prefix"
+LINES_BETWEEN_GROUPS_KEY = "g:organize_includes_lines_between_groups"
 
 def _get_global_variable(key):
     eval_value = int(vim.eval('exists("%s")' % key))
@@ -79,11 +80,20 @@ def organize_cpp_includes():
         ),
         lambda l: get_include_type(l)
     )
+
+    add_lines = _get_global_variable(LINES_BETWEEN_GROUPS_KEY)
+    if add_lines is not None:
+        add_lines = (add_lines == "1")
+    else:
+        add_lines = True
+
     result = []
     for _, g in include_list:
         result.extend(g)
-        result.append('')
+        if add_lines:
+            result.append('')
     if len(result) > 0: result.pop()
+
     b[start:end] = result
     vim.command('redraw')
     print "Includes organized"
