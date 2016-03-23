@@ -1,16 +1,17 @@
-import vim
 import itertools
 import os
 
 COMPANY_PREFIX_KEY = "g:organize_includes_company_prefix"
 LINES_BETWEEN_GROUPS_KEY = "g:organize_includes_lines_between_groups"
 
+vim = None
+
 def _get_global_variable(key):
     eval_value = int(vim.eval('exists("%s")' % key))
     if not eval_value: return None
     return vim.eval(key)
 
-def _find_include_range(buf):
+def find_include_range(buf):
     start = None
     end = None
     is_empty = lambda s: len(s.strip()) == 0
@@ -54,7 +55,7 @@ class IncludeType:
     COMPANY = 2
     GLOBAL = 3
 
-def _get_include_type(l, company_prefix, buffer_name):
+def get_include_type(l, company_prefix, buffer_name):
     if _same_basename(l, buffer_name): return IncludeType.THIS_FILE_HEADER
     if _is_company(l, company_prefix): return IncludeType.COMPANY
     if _is_global(l): return IncludeType.GLOBAL
@@ -62,12 +63,12 @@ def _get_include_type(l, company_prefix, buffer_name):
 
 def organize_cpp_includes():
     b = vim.current.buffer
-    start, end = _find_include_range(b)
+    start, end = find_include_range(b)
     if start is None:
         print "No include directives found"
         return
     
-    get_include_type = lambda l: _get_include_type(
+    _get_include_type = lambda l: get_include_type(
         l,
         _get_global_variable(COMPANY_PREFIX_KEY),
         _filename(vim.current.buffer.name)
@@ -76,9 +77,9 @@ def organize_cpp_includes():
     include_list = itertools.groupby(
         sorted(
             set(filter(_non_empty, b[start:end])),
-            key=lambda l: (get_include_type(l), l)
+            key=lambda l: (_get_include_type(l), l)
         ),
-        lambda l: get_include_type(l)
+        lambda l: _get_include_type(l)
     )
 
     add_lines = _get_global_variable(LINES_BETWEEN_GROUPS_KEY)
@@ -97,3 +98,7 @@ def organize_cpp_includes():
     b[start:end] = result
     vim.command('redraw')
     print "Includes organized"
+
+def initialize(vim_ext):
+    global vim
+    vim = vim_ext
