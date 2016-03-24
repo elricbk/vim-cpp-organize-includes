@@ -56,7 +56,5 @@ Use your plugin manager of choice.
 ## Todo
 
 * More tests
-* Correct support for "company" includes (not just `.find(prefix)`)
 * Support for includes with excessive spaces
-* Support for includes with comments
 * Docs

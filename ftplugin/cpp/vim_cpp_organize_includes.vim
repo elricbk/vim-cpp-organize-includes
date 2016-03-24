@@ -10,12 +10,18 @@ python sys.path.append(vim.eval('expand("<sfile>:h")'))
 " --------------------------------
 function! OrganizeCppIncludes()
 python << endOfPython
-import vim
-
 import vim_cpp_organize_includes
 
 vim_cpp_organize_includes.initialize(vim)
-vim_cpp_organize_includes.organize_cpp_includes()
+start, end, result = vim_cpp_organize_includes.organize_cpp_includes(
+    vim.current.buffer
+)
+if start is None:
+    print("No include directives found")
+else:
+    vim.current.buffer[start:end] = result
+    vim.command('redraw')
+    print("Includes organized")
 
 endOfPython
 endfunction
