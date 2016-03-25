@@ -1,4 +1,4 @@
-*vim-cpp-organize-includes.txt* A short multi line description of your plugin
+*vim-cpp-organize-includes.txt* Organizes include directives in C++ files
 
 ===============================================================================
 CONTENTS                                            *vim-cpp-organize-includes*
@@ -6,22 +6,63 @@ CONTENTS                                            *vim-cpp-organize-includes*
     1. Intro ................................ |vim-cpp-organize-includes-intro|
     2. Requirements .................. |vim-cpp-organize-includes-requirements|
     3. Usage ................................ |vim-cpp-organize-includes-usage|
-    4. Licence ............................ |vim-cpp-organize-includes-licence|
+    4. Options ............................ |vim-cpp-organize-includes-options|
+    5. Licence ............................ |vim-cpp-organize-includes-licence|
 ===============================================================================
 1. Intro                                      *vim-cpp-organize-includes-intro*
 
-Overview of plugin
+Sorts, uniqs and groups include directives in C++ files.
 
 2. Requirements                        *vim-cpp-organize-includes-requirements*
 
-What additional programs are required to run the plugin
+Vim compiled with Python support. You can check for Python support by
+launching Vim with the --version switch:
+
+    vim --version
+
+If "+python" appears in the version information then your version of Vim has
+Python support.
 
 3. Usage                                      *vim-cpp-organize-includes-usage*
 
-How to use the plugin. What functions does it give the user?
+Plugin adds single command |OrganizeCppIncludes|. One may want to remap it for
+more convenient usage.
 
-4. Licence                                  *vim-cpp-organize-includes-licence*
+4. Options                                  *vim-cpp-organize-includes-options*
 
-This is open source make sure to include a licence
+Available options are:
+
+  |g:organize_includes_company_prefix|
+
+      Allows to set your company prefix to group corresponding includes
+
+  |g:organize_includes_lines_between_groups|
+
+      Allows to disable adding empty lines beween groups if set to zero
+
+5. Licence                                  *vim-cpp-organize-includes-licence*
+
+Copyright 2016-present Boris Kuchin. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
 
 vim:ft=help

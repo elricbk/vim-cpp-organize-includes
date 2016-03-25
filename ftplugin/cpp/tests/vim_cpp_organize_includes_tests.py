@@ -45,13 +45,13 @@ class FindIncludeRangeTest(unittest.TestCase):
         self.assertEqual(start, 1)
         self.assertEqual(end, 3)
 
-    def test_given_trailing_empty_lines_treats_them_as_include_lines(self):
+    def test_given_trailing_empty_lines_doesnt_treat_them_as_includes(self):
         buf = ['', '#include <string>', '', '']
 
         start, end = sut.find_include_range(buf)
 
         self.assertEqual(start, 1)
-        self.assertEqual(end, 4)
+        self.assertEqual(end, 2)
 
     def test_given_empty_lines_between_directives_includes_them_in_result(self):
         buf = ['', '#include <string>', '', '#include <vector>']
@@ -70,6 +70,12 @@ class FindIncludeRangeTest(unittest.TestCase):
         self.assertIsNone(end)
 
 class OrganizeCppIncludesTest(unittest.TestCase):
+    def setUp(self):
+        mock_vim = mock.Mock()
+        mock_vim.eval = mock.Mock(return_value=0)
+        mock_vim.current.buffer.name = ''
+        sut.initialize(mock_vim)
+
     def test_given_buffer_with_no_includes_returns_none(self):
         buf = ['', 'test', 'me', '']
 
@@ -77,11 +83,7 @@ class OrganizeCppIncludesTest(unittest.TestCase):
 
         self.assertIsNone(start)
 
-    def test_given_buffer_with_included_organized_them(self):
-        mock_vim = mock.Mock()
-        mock_vim.eval = mock.Mock(return_value=0)
-        mock_vim.current.buffer.name = ''
-        sut.initialize(mock_vim)
+    def test_given_buffer_with_includes_organizes_them(self):
         buf = [
             '#include <vector>',
             '#include "local.h"',
@@ -95,5 +97,32 @@ class OrganizeCppIncludesTest(unittest.TestCase):
             '',
             '#include <string>',
             '#include <vector>',
+        ])
+
+    def test_given_repeated_includes_leaves_only_one(self):
+        buf = [
+            '#include <vector>',
+            '#include <vector>',
+            '#include "string"',
+            '#include "string"',
+        ]
+
+        _, _, result = sut.organize_cpp_includes(buf)
+
+        self.assertEqual(result, [
+            '#include "string"',
             '',
+            '#include <vector>',
+        ])
+
+    def test_given_repeated_includes_with_spaces_leaves_only_one(self):
+        buf = [
+            '#include   <vector>',
+            '#include <vector>  ',
+        ]
+
+        _, _, result = sut.organize_cpp_includes(buf)
+
+        self.assertEqual(result, [
+            '#include <vector>',
         ])

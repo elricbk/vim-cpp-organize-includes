@@ -35,7 +35,8 @@ lines between groups if set to `0` (default value is `1`).
 
 ## Requirements
 
-`python` support for Vim.
+`python` support for Vim. Also, tests require `mock` module to mock Vim
+functionality.
 
 ## Installation
 
@@ -52,9 +53,3 @@ Use your plugin manager of choice.
 - [vim-plug](https://github.com/junegunn/vim-plug)
   - Add `Plug 'elricbk/vim-cpp-organize-includes'` to .vimrc
   - Run `:PlugInstall`
-
-## Todo
-
-* More tests
-* Support for includes with excessive spaces
-* Docs
